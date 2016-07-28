@@ -28,7 +28,7 @@ sub spit {
     print $fd shift;
     close $fd;
 }
-my $cpanm = `command -v cpanm`;
+my $cpanm = qx/which cpanm/;
 
 spit "$venv/bin/perl", <<EOS;
 #!/bin/sh
