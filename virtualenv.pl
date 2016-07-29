@@ -29,6 +29,8 @@ sub spit {
     close $fd;
 }
 my $cpanm = qx/which cpanm/;
+$cpanm =~ s/^\s+//;
+$cpanm =~ s/\s+$//;
 
 spit "$venv/bin/perl", <<EOS;
 #!/bin/sh
@@ -39,7 +41,7 @@ chmod 0755, "$venv/bin/perl";
 
 spit "$venv/bin/cpanm", <<EOS;
 #!/bin/sh
-exec $cpanm --local-lib="$venv" "\$@"
+$cpanm --local-lib="$venv" \$@
 EOS
 chmod 0755, "$venv/bin/cpanm";
 
